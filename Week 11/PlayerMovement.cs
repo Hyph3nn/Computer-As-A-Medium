@@ -44,8 +44,9 @@ void Movement(){
         else{
             speedY = 0;
         }
-
         rb.linearVelocity = new Vector2(speedX, speedY);
     }
 }
+
+
 
