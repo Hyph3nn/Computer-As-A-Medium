@@ -1,6 +1,5 @@
 using UnityEngine;
 using TMPro;
-using System.Reflection;
 
 public class PlayerMana : MonoBehaviour
 {
@@ -19,24 +18,16 @@ public class PlayerMana : MonoBehaviour
     {
         manaText.text = "Mana: " + mana;
 
+
         //each attack costs 10 mana
-        if (PlayerAttack.IsAttacking)
+        if (PlayerAttack.IsAttacking || JumpAttack.IsAttacking)
         {
             mana -= 10;
         }
-
         if (mana < 0)
         {
             mana = 0;
         }
-
-        //passively restore mana slowly
-        if (mana < 100)
-        {
-            mana++;
-        }
-
         manaText.text = "Mana: " + mana;
     }
-
 }

@@ -21,7 +21,7 @@ public class PlayerAttack : MonoBehaviour
     public bool Attack()
 
     {
-        if (Keyboard.current.fKey.isPressed){
+        if (Keyboard.current.fKey.wasPressedThisFrame){
             animator.SetBool("attack", true);
             IsAttacking = true;
         }
@@ -33,3 +33,4 @@ public class PlayerAttack : MonoBehaviour
         return IsAttacking;
     }
 }
+
