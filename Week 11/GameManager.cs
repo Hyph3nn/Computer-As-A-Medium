@@ -24,7 +24,12 @@ public class GameManager : MonoBehaviour
     {
         gameUI.SetActive(true);
     }
-        if (playerHealth.healthText.text == "Health: 0")
+    else if (playerHealth.healthText.text == "Health: 100")
+        {
+            gameUI.SetActive(false);
+        }
+
+    if (playerHealth.healthText.text == "Health: 0")
         {
             PlayerDied();
         }
