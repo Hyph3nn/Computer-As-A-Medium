@@ -4,7 +4,7 @@ public class Trap : MonoBehaviour
 {
     public PlayerHealth playerHealth;
     public PlayerMovement playerMovement;
-    public Knockack knockback;
+    public Knockback knockback;
     public float knockbackForce;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

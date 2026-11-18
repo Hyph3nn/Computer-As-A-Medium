@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections;
-public class Knockack : MonoBehaviour
+public class Knockback : MonoBehaviour
 {
     public float knockbackForce;
     public float knockbackDuration;
@@ -18,7 +18,7 @@ public class Knockack : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Bullet"))
+        if (other.gameObject.CompareTag("Player") || other.gameObject.CompareTag("Enemy"))
         {
         Rigidbody2D rb = other.GetComponent<Rigidbody2D>(); //this is grabbing the gameobject's rigid body not the rigid body attached to the trigger
         if (rb != null)
