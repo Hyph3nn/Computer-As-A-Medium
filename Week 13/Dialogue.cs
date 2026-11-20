@@ -5,38 +5,43 @@ using System.Collections;
 public class Dialogue : MonoBehaviour
 {
     public TextMeshProUGUI dialogueText;
-
-    public string[] dialogues =
+    private readonly WaitForSeconds waitForCompleteDialogue = new(3f); //caching the wfs to prevent loop errors
+    private bool isTriggered = false; //prevents dialogue from overlapping, see note in function
+    public string[] dialogues = 
     {
         "Hello, Player!",
         "Welcome to my village!",
         "Be careful! There are enemies ahead!"
     };
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-       
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     void OnTriggerEnter2D(Collider2D other)
     {
         if (other.CompareTag("Player"))
         {
-            StartCoroutine(ShowDialogue());
+            if(isTriggered == true) //prevents dialogue from overlapping feed, stops repetitive phrasing. e.g. w/out you can trigger the dialoge repetedly causing some phrases to double up and get repetitive, w/this the full dialogue will complete before being triggerred agian
+                {
+                    return;
+                }
+            else
+                {
+                StartCoroutine(ShowDialogue());
+                }
+                
         }
     }
     IEnumerator ShowDialogue()
     {
-        for (int i = 0; i < dialogues.Length; i++)
+        isTriggered = true;
+
+        for (int i = 0; i < dialogues.Length; i++) //arrayName.Length is an exitsting ability of the array to provide it's length
         {
-            dialogueText.text = dialogues[i];
+            //exception handling
+            if (string.IsNullOrEmpty(dialogues[i]))
+            {
+                yield break;
+            }
+
+            dialogueText.text = dialogues[i]; //accessing dialogue at each index, then applying delay before next text sequence
             //dialogueText.text = dialogues[0];
             //dialogueText.text = "Hello, Player!";
 
@@ -48,9 +53,9 @@ public class Dialogue : MonoBehaviour
             //dialogueText.text = dialogues[2];
             //dialogueText.text = "Be careful! There are enemies ahead!";
 
-            yield return new WaitForSeconds(3f);
+            yield return waitForCompleteDialogue;
         }
-
+        isTriggered = false;
         dialogueText.text = "";
     }
 }
