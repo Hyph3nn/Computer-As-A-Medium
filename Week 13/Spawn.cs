@@ -14,6 +14,7 @@ public class Spawn : MonoBehaviour
     public bool isSpawningEnemy = true;
     [SerializeField]private bool isSpawningHealthPack = true;
     [SerializeField]private bool isSpawningManaPack = true;
+    public GameObject enemySpawnStopper;
 
     /*why public, private, or serialize?
     public - allows the variable to be accessed and manipulated accross other files w/out setters or getters, easy to access and 
@@ -89,6 +90,13 @@ public class Spawn : MonoBehaviour
         Destroy(Instantiate(manaPackPrefab, spawnPosition, Quaternion.identity), 5f); //Quaternion.identity sets instantioated objects to "no rotaion" so it will spawn aligned wit the world axis in Unity
     }
 
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            isSpawningEnemy = false;
+        }
+    }
 }
 //A note about random numbers:
 //since computationally, there's no "true" random sequence, normally you would need to "seed" or intialize it ensuring replicability,
